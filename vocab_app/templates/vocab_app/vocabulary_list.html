@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vocabulary List</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fcdddd;
+            padding: 10px;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            padding-left: 10px 0;
+            text-align: left;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li.vocab {
+            position: relative;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: rgba(255, 255, 255, 0.698);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .delete-button {
+            display: none;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background-color: rgb(255, 94, 94);
+            color: rgb(255, 255, 255);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        li.vocab:hover .delete-button {
+            display: inline-block;
+        }
+        .word_entry {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Vocabulary List</h1>
+        <div class="word_entry">
+        <form method="post">
+            {% csrf_token %}
+            Word<br>
+            <textarea name="word" rows="1" cols="25"></textarea><br>
+            Definition<br>
+            <textarea name="definition" rows="2" cols="50"></textarea><br>
+            Example sentence<br>
+            <textarea name="example_sentence" rows="2" cols="50"></textarea><br>
+            <input type="submit" value="add word">
+        </form>
+        </div>
+    
+        <ul>
+            {% for vocab in vocabularies %}
+                <li class="vocab"><strong>{{ vocab.word }}</strong>: {{ vocab.definition }} (Example: {{ vocab.example_sentence }})
+                <form class="delete-form" action="{% url 'delete_vocab' vocab.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+    <footer>
+        <p><a href="{% url 'home' %}">&larr; Home</a></p>
+    </footer>
+</body>
+</html>

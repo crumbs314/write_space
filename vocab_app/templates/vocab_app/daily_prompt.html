@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Daily Prompt</title>
+</head>
+<body>
+    <h1>Daily Writing Prompt</h1>
+    <p>{{ prompt.prompt_text }}</p>
+    <h2>Today's Vocabulary Words</h2>
+    <ul>
+        {% for vocab in vocabularies %}
+            <li><strong>{{ vocab.word }}</strong>: {{ vocab.definition }} (Example: {{ vocab.example_sentence }})</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'home' %}">Home</a></p>
+</body>
+</html>

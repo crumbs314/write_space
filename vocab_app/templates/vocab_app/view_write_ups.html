@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Write-Ups</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fcdddd;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            padding-left: 10px 0;
+            text-align: left;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .writeup {
+            position: relative;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: rgba(255, 255, 255, 0.698);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .your_writeups {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Your Write-Ups</h1>
+        <div class="your_writeups">
+            {% for write_up in write_ups %}
+                <div class="writeup">
+                    <strong>{{ write_up.date }}:</strong> {{ write_up.write_up }} <br>
+                    <form action="{% url 'delete_write_up' write_up.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit">Delete</button>
+                    </form> <br>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+    <footer>
+        <p><a href="{% url 'home' %}">&larr; Home</a></p>
+    </footer>
+</body>
+</html>

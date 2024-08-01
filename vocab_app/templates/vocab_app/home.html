@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fcdddd;
+            text-align: center;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            padding-left: 10px 0;
+            text-align: left;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Welcome Christine</h1>
+        <ul>
+            <p><a href="{% url 'vocabulary_list' %}">Vocabulary List</a></p>
+            <p><a href="{% url 'submit_write_up' %}">Submit Your Daily Write-Up</a></p>
+            <p><a href="{% url 'view_write_ups' %}">View Past Entries</a></p>
+        </ul>
+    </main>
+    <footer>
+        {% if user.is_authenticated %}
+            <form method="post">
+                {% csrf_token %}
+                <p><a href="{% url 'logout' %}">&larr; Logout</a></p>
+            </form>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+    </footer>
+</body>
+</html>

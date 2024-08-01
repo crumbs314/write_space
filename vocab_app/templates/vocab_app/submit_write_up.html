@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Write-Up</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #fcdddd;
+            color: #000000;
+        }
+        main {
+            flex: 1;
+        }
+        footer {
+            padding-left: 10px 0;
+            text-align: left;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        footer a {
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        p.poem {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Submit Your Daily Write-Up</h1>
+        <h3>Daily Writing Prompt:</h3>
+        <p class="poem">
+            {% for line in prompt %}
+                {{line}}<br>
+            {% endfor %}
+        </p>
+        <h3>Today's Vocabulary:</h3>
+        <ul>
+            {% for vocab in vocabularies %}
+                <li><strong>{{ vocab.word }}</strong>: {{ vocab.definition }} (Example: {{ vocab.example_sentence }})</li>
+            {% endfor %}
+        </ul>
+        <form method="post">
+            {% csrf_token %}
+            <textarea name="write_up" rows="10" cols="100"></textarea><br>
+            <input type="submit" value="Save">
+        </form>
+    </main>
+    <footer>
+        <p><a href="{% url 'home' %}">&larr; Home</a></p>
+    </footer>
+</body>
+</html>

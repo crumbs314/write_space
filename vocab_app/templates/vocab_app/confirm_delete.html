@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete</title>
+</head>
+<body>
+    <h1>Confirm Delete</h1>
+    <p>Are you sure you want to delete this write-up?</p>
+    <p><strong>{{ write_up.date }}</strong>: {{ write_up.content }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Confirm</button>
+    </form>
+    <p><a href="{% url 'view_write_ups' %}">Cancel</a></p>
+</body>
+</html>
